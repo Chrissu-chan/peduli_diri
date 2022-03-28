@@ -18,19 +18,21 @@ class UserController extends Controller
     {
         $user = User::findOrfail($id);
         if ($request->hasFile('avatar')) {
-            $filename = $request->avatar->getClientOriginalName();
-            $request->avatar->storeAs('images', $filename, 'public');
+            $file = $request->file("avatar");
+            $filename = time() . "." . $file->getClientOriginalExtension();
+            if (isset($filename)) {
+                $file->move('assets/images', $filename);
+            }
+            // $request->avatar->storeAs('images', $filename, 'public');
         }
         $request->validate([
             'username' => 'required',
             'email' => 'required:users,email,id,' . $id,
-            'avatar' => 'required|mimes:jpeg,jpg,png',
             'password' => 'required',
         ],[
             'username.required' => 'Username tidak boleh kosong',
             'email.required' => 'Email tidak boleh kosong',
             'avatar.required' => 'Avatar tidak boleh kosong',
-            'avatar.mimes' => 'Avatar harus berupa jpeg, jpg, atau png',
             'password.required' => 'Password tidak boleh kosong',
         ]);
         if (Hash::check($request->password, $user->password)) {

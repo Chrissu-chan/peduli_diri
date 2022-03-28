@@ -24,7 +24,7 @@ class PerjalananController extends Controller
 
     public function get()
     {
-        $data = Perjalanan::orderBy('id', 'ASC');
+        $data = Perjalanan::where('user_id', Auth::user()->id)->orderBy('id', 'ASC');
         return DataTables::of($data)
             ->addColumn('tanggal', function ($request) {
                 $date = Carbon::createFromFormat('Y-m-d', $request->tanggal)->format('d-m-Y');
@@ -37,16 +37,15 @@ class PerjalananController extends Controller
             ->addColumn('actions', function ($data) {
                 $actions = "";
                 if (Auth::user()->role == 'admin') {
-                    $actions = '<a href="' . route('perjalanan.edit', $data->id) . '" class="btn btn-info">Edit</a>
-                                <button class="btn btn-danger" onclick="destroy(' . $data->id . ')" type="button">Delete</button>
-                                <a href="' . route('generate', $data->id) . '" class="btn btn-primary">Generate</a>
-                                <a href="' . route('qrcode',  $data->id) . '" class="btn btn-info">QrCode</a>';
-                } 
+                    $actions = '<a href="' . route('perjalanan.edit', $data->id) . '" class="btn btn-warning btn-sm">Edit</a>
+                                <button class="btn btn-danger btn-sm" onclick="destroy(' . $data->id . ')" type="button">Delete</button>';
+                                // <a href="' . route('generate', $data->id) . '" class="btn btn-primary btn-sm">Generate</a>
+                                // <a href="' . route('qrcode',  $data->id) . '" class="btn btn-info btn-sm">QrCode</a>';
+                }
                 // if(Auth::user()->role == 'user') {
                 //     $actions = '<a href="' . route('qrcode',  $data->id) . '" class="btn btn-info">QrCode</a>';
-                // }    
+                // }
                 return $actions;
-                
             })
             ->rawColumns(['actions'])
             ->addIndexColumn()
@@ -75,6 +74,7 @@ class PerjalananController extends Controller
         ]);
 
         $data = [
+            'id_user' => $request->id_user,
             'tanggal' => $request->tanggal,
             'jam' => preg_replace("/[^0-9]/", "", $request->jam),
             'lokasi' => $request->lokasi,

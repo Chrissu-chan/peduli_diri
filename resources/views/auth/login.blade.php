@@ -18,10 +18,10 @@
     <div id="app">
         <section class="section">
             <div class="d-flex flex-wrap align-items-stretch">
-                <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
+                <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-dark">
                     <div class="p-4 m-3">
-                        <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2 img-responsive center-block d-block mx-auto">
-                        <h4 class="text-dark font-weight-normal mt-5 text-center">Selamat Datang Ke <span class="font-weight-bold">Peduli Diri</span></h4>
+                        <img src="{{ asset('assets/img/copid.jpg') }}" alt="logo" width="100" class="shadow-light rounded-circle mb-5 mt-2 img-responsive center-block d-block mx-auto">
+                        <h4 class="font-weight-normal mt-5 text-center">Selamat Datang Ke <span class="font-weight-bold">Peduli Diri</span></h4>
                             <p class="text-center">Sebelum memulai, Anda harus login atau mendaftar jika Anda belum memiliki akun.</p>
                         <br>
                         @if(session('success'))
@@ -50,7 +50,6 @@
                                 </div>
                                 <span id="message"></span>
                             </div>
-                        
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <div class="input-group-prepend">
@@ -76,20 +75,18 @@
                         </form>
 
                         <div class="text-center mt-2 text-small">
-                            Copyright &copy; Bayu. Made with Stisla
+                            Copyright &copy; Chris. Made with Stisla
 
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="{{ asset('assets/img/bromo2.jpg') }}">
+                <div class="col-lg-8 col-12 order-lg-2 order-1 background-walk-y position-relative overlay-gradient-bottom" data-background="{{ asset('assets/img/background2.jpg') }}">
                     <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
                             <div class="mb-5 pb-3">
                                 <h1 class="mb-2 display-4 font-weight-bold">WELCOME</h1>
-                                <h5 class="font-weight-normal text-muted-transparent">Mount Bromo, Indonesia</h5>
+                                <h5 class="font-weight-normal text-muted-transparent">Mount Fuji, Japan</h5>
                             </div>
-                            Photo by <a class="text-light bb" target="_blank" href="https://unsplash.com/@heytherenindy">Nindy Rahmadani
-                            </a> on <a class="text-light bb" target="_blank" href="https://unsplash.com">Unsplash</a>
                         </div>
                     </div>
                 </div>

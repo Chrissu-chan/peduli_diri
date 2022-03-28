@@ -28,6 +28,7 @@
                 <form method="POST" action="{{ route('perjalanan.store') }}">
                     @csrf
                     <div class="form-group">
+                        <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
                         <label for="tanggal">Tanggal</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -72,7 +73,7 @@
 <script>
 
     $(document).ready(function() {
-        $('.time').timepicker({
+        $('#jam').timepicker({
             timeFormat: 'hh:mm:ss p',
             dropdown: true,
             scrollbar: true
@@ -81,7 +82,7 @@
 
 
     $(document).ready(function () {
-        $('.datepicker').daterangepicker({
+        $('#tanggal').daterangepicker({
             singleDatePicker: true,
             startDate: moment(),
             locale: {
@@ -89,10 +90,5 @@
             }
         });
     });
-
-    // setTimeout(function() {
-    //     $('.alert').slideUp();
-    // }, 5000);
-    
-</script>    
+</script>
 @endsection

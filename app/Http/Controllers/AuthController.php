@@ -59,18 +59,17 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'username' => 'required|min:8|max:20',
+            'username' => 'required|min:4|max:20',
             'nik'      => 'required|unique:users|min:16|numeric',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
-            'no_telepon' => ['required', 'regex:/^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/', 'unique:users'],
-            'avatar' => 'required|mimes:jpeg,jpg,png' 
+            'no_telepon' => ['required', 'regex:/^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/', 'unique:users']
         ],[
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Email harus berupa email',
             'email.unique' => 'Email sudah terdaftar',
             'username.required' => 'Username tidak boleh kosong',
-            'username.min' => 'Username minimal 8 karakter',
+            'username.min' => 'Username minimal 4 karakter',
             'username.max' => 'Username maksimal 20 karakter',
             'nik.required' => 'NIK tidak boleh kosong',
             'nik.unique' => 'NIK sudah terdaftar',
@@ -80,14 +79,15 @@ class AuthController extends Controller
             'password.min' => 'Password minimal 8 karakter',
             'no_telepon.required' => 'No Telepon tidak kosong',
             'no_telepon.regex' => 'No Telepon tidak valid',
-            'avatar.required' => 'Avatar tidak boleh kosong',
-            'avatar.mimes' => 'Avatar harus berupa jpeg, jpg, atau png'
         ]);
 
-        if ($request->hasFile("avatar")) {
+        $filename = null;
+        if ($request->hasFile('avatar')) {
             $file = $request->file("avatar");
             $filename = time() . "." . $file->getClientOriginalExtension();
-            $file->move('assets/images', $filename);
+            if (isset($filename)) {
+                $file->move('assets/images', $filename);
+            }
         }
 
         $user = User::create([
@@ -97,7 +97,7 @@ class AuthController extends Controller
             'no_telepon' => $request->no_telepon,
             'password' => bcrypt($request->password),
             'avatar' => $filename,
-            'role' => 'user',
+            'role' => 'admin',
         ]);
         if($user) {
             return redirect(route('login'))->with('success', 'Kamu Berhasil Membuat Akun');

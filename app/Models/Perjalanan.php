@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Perjalanan extends Model
 {
     use HasFactory;
-    protected $fillable = ['tanggal', 'jam', 'lokasi', 'suhu_tubuh'];
+    protected $fillable = ['user_id','tanggal', 'jam', 'lokasi', 'suhu_tubuh'];
+
+    public function view_users() {
+        return $this->belongsTo(User::class);
+    }
 }

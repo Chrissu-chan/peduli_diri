@@ -26,7 +26,7 @@
                             </h4>
                         </div>
 
-                        <div class="card card-primary">
+                        <div class="card card-dark">
                             <div class="card-header">
                                 <h4>Register</h4>
                             </div>
@@ -49,7 +49,7 @@
                                     </ul>
                                 </div>
                                 @endif
-                                <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate="">
+                                <form method="POST" action="{{ route('register') }}" class="needs-validation" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="form-group col-6">
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="avatar">Masukkan Avatar</label>
-                                            <input name="avatar" type="file" class="form-control-file" id="avatar">
+                                            <input type="file" name="avatar" class="form-control-file" id="avatar"/>
                                             <div class="invalid-feedback">
                                                 Tolong Isi Avatar anda
                                             </div>
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy; Bayu 2022
+                            Copyright &copy; Chris 2022
                         </div>
                     </div>
                 </div>

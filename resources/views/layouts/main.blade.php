@@ -7,7 +7,7 @@
     <title>Peduli Diri - @yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{  asset('assets/img/peduli_diri.svg')  }}" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.timepicker.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/node_modules/fontawesome/css/all.min.css')}} ">
     <link rel="stylesheet" href="{{ asset('assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}} ">
@@ -34,11 +34,11 @@
 
                     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             @if(Auth::user()->avatar)
-                            <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle">
+                            <img alt="image" src="{{ asset('assets/images/' . Auth::user()->avatar) }}" class="rounded-circle">
                             @else
-                            <img alt="image" src="{{ asset('assets/images/' . Auth::user()->avatar) }}" class="rounded-circle mr-1">
+                            <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle">
                             @endif
-                            <div class="d-sm-none d-lg-inline-block">Hi, {{ ucwords(Auth::user()->username) }}</div>
+                            <div class="d-sm-none d-lg-inline-block">{{ ucwords(Auth::user()->username) }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="{{ route('profile', Auth::user()->id) }}" class="dropdown-item has-icon">
@@ -56,46 +56,38 @@
                 <div class="container">
                     <ul class="navbar-nav">
                         @if (Auth::user()->role == "admin")
-                        <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
-                            <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
-                        </li>
-                        <li class="nav-item {{ Request::is('perjalanan') ? 'active' : '' }}">
-                            <a href="{{ route('perjalanan.index') }}" class="nav-link"><i class="fas fa-paper-plane"></i><span>Catatan Perjalanan</span></a>
-                        </li>
-                        <li class="nav-item {{ Request::is('perjalanan/create') ? 'active' : '' }}">
-                            <a href="{{ route('perjalanan.create') }}" class="nav-link"><i class="fas fa-book-open"></i><span>Isi Data</span></a>
-                        </li>
+                            <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                                <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
+                            </li>
+                            <li class="nav-item {{ Request::is('perjalanan') ? 'active' : '' }}">
+                                <a href="{{ route('destinasi.index') }}" class="nav-link"><i class="fas fa-clipboard"></i><span>Destinasi</span></a>
+                            </li>
+                            <!-- <li class="nav-item {{ Request::is('perjalanan/create') ? 'active' : '' }}">
+                                <a href="{{ route('perjalanan.create') }}" class="nav-link"><i class="fas fa-book-open"></i><span>Data Pengguna</span></a>
+                            </li> -->
                         @endif
                         @if (Auth::user()->role == 'user')
-                        <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
-                            <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-home"></i><span>Home</span></a>
-                        </li>
-                        <li class="nav-item {{ Request::is('data-perjalanan') ? 'active' : '' }}">
-                            <a href="{{ route('data-perjalanan') }}" class="nav-link"><i class="fas fa-paper-plane"></i><span>Data Catatan Perjalanan</span></a>
-                        </li>
-                        <li class="nav-item {{ Request::is('scanner') ? 'active' : '' }}">
-                            <a href="{{ route('scanner') }}" class="nav-link"><i class="fas fa-qrcode"></i><span>Scanner QRcode</span></a>
-                        </li>
+                            <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                                <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
+                            </li>
+                            <li class="nav-item {{ Request::is('scanner') ? 'active' : '' }}">
+                                <a href="{{ route('scanner') }}" class="nav-link"><i class="fas fa-qrcode"></i><span>Scan QR</span></a>
+                            </li>
+                            <li class="nav-item {{ Request::is('perjalanan') ? 'active' : '' }}">
+                                <a href="{{ route('perjalanan') }}" class="nav-link"><i class="fas fa-user"></i><span>Data Perjalanan</span></a>
+                            </li>
                         @endif
                     </ul>
-                    <img src="{{ asset('assets/img/peduli_diri.svg') }}" alt="logo" width="180" class="mb-5 mt-5 img-responsive">
+                    <!-- <img src="{{ asset('assets/img/peduli_diri.svg') }}" alt="logo" width="180" class="mb-5 mt-5 img-responsive"> -->
                 </div>
             </nav>
 
             <div class="main-content">
-                <section class="section">
-                    <div class="section-header">
-                        <h1>@yield('title')</h1>
-                        <div class="section-header-breadcrumb">
-                            <div class="breadcrumb-item active"><a href="#">@yield('title')</a></div>
-                        </div>
-                    </div>
-                </section>
                 @yield('content')
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; {{ date('Y') }} <div class="bullet">Development By <a href="https://github.com/bayudiartaa" target="_blank">Bayudiarta Laksono</a>
+                    Copyright &copy; {{ date('Y') }} <div class="bullet">Develop By Chrismadhani Adirangga, Fork to <a href="https://github.com/bayudiartaa" target="_blank">Bayudiarta</a>
                 </div>
                 <div class="footer-right">
                     2.3.0
@@ -120,7 +112,7 @@
     <!-- Template JS File -->
     <script src="{{asset('assets/js/scripts.js')}}"></script>
     <script src="{{asset('assets/js/custom.js')}}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script src="{{asset('assets/js/jquery.timepicker.min.js')}}"></script>
     <script src="{{ asset('assets/node_modules/instascan.min.js') }}"></script>
     @yield('script')
     <script>
